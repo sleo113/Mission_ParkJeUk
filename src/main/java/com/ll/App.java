@@ -75,31 +75,38 @@ public class App {
     }
 
     void Remove(String cmd) {
-        /*System.out.print("삭제할 번호 입력 : " );
-        String removeId = scanner.nextLine();
-        */
+        int id = getParamAsInt(cmd, "id", 0);
+
+        if (id == 0) {
+            System.out.println("id를 정확히 입력해주세요.");
+            return;
+        }
+
+        System.out.printf("%d번 명언을 삭제합니다.\n", id);
+    }
+
+    int getParamAsInt(String cmd, String paramName, int defaultValue) {
         String[] cmdBits = cmd.split("\\?", 2);
-        String action = cmdBits[0];
         String queryString = cmdBits[1];
 
         String[] queryStringBits = queryString.split("&");
-
-        int id = 0;
 
         for (int i = 0; i < queryStringBits.length; i++) {
             String queryParamStr = queryStringBits[i];
 
             String[] queryParamStrBits = queryParamStr.split("=", 2);
 
-            String paramName = queryParamStrBits[0];
+            String _paramName = queryParamStrBits[0];
             String paramValue = queryParamStrBits[1];
 
-            if (paramName.equals("id")) {
-                id = Integer.parseInt(paramValue);
+            if (_paramName.equals(paramName)) {
+                try {
+                    return Integer.parseInt(paramValue);
+                } catch (NumberFormatException e) {
+                    return defaultValue;
+                }
             }
         }
-
-        System.out.printf("%d번 명언을 삭제합니다.\n", id);
-
+        return defaultValue;
     }
 }
