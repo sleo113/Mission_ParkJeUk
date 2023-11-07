@@ -7,8 +7,6 @@ import java.util.Scanner;
 public class App {
     Scanner scanner;
     int Wise_sayingId;
-
-
     List<Wise_saying> wise_sayings;
 
     App() {
@@ -29,12 +27,15 @@ public class App {
 
             if (cmd.equals("종료")) {
                 break;
-            } else if (cmd.equals("등록")) {
+            }
+            else if (cmd.equals("등록")) {
                 registraction();
-            } else if (cmd.equals("목록")) {
+            }
+            else if (cmd.equals("목록")) {
                 list();
-            } else if (cmd.equals("삭제")) {
-                Remove();
+            }
+            else if (cmd.startsWith("삭제?")) {
+                Remove(cmd);
             }
         }
     }
@@ -73,7 +74,32 @@ public class App {
         }
     }
 
-    void Remove(){
-        System.out.println("삭제되었습니다.");
+    void Remove(String cmd) {
+        /*System.out.print("삭제할 번호 입력 : " );
+        String removeId = scanner.nextLine();
+        */
+        String[] cmdBits = cmd.split("\\?", 2);
+        String action = cmdBits[0];
+        String queryString = cmdBits[1];
+
+        String[] queryStringBits = queryString.split("&");
+
+        int id = 0;
+
+        for (int i = 0; i < queryStringBits.length; i++) {
+            String queryParamStr = queryStringBits[i];
+
+            String[] queryParamStrBits = queryParamStr.split("=", 2);
+
+            String paramName = queryParamStrBits[0];
+            String paramValue = queryParamStrBits[1];
+
+            if (paramName.equals("id")) {
+                id = Integer.parseInt(paramValue);
+            }
+        }
+
+        System.out.printf("%d번 명언을 삭제합니다.\n", id);
+
     }
 }
