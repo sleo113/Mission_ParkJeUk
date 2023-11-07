@@ -85,6 +85,17 @@ public class App {
         System.out.printf("%d번 명언을 삭제합니다.\n", id);
     }
 
+    void actionModify(String cmd) {
+        int id = getParamAsInt(cmd, "id", 0);
+
+        if (id == 0) {
+            System.out.println("id를 정확히 입력해주세요.");
+            return;
+        }
+
+        System.out.printf("%d번 명언을 수정합니다.\n", id);
+    }
+
     int getParamAsInt(String cmd, String paramName, int defaultValue) {
         String[] cmdBits = cmd.split("\\?", 2);
         String queryString = cmdBits[1];
