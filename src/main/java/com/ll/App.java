@@ -33,6 +33,8 @@ public class App {
                 registraction();
             } else if (cmd.equals("목록")) {
                 list();
+            } else if (cmd.equals("삭제")) {
+                Remove();
             }
         }
     }
@@ -69,5 +71,9 @@ public class App {
                 System.out.printf("%d / %s / %s\n", quotation.id, quotation.content, quotation.authorName);
             }
         }
+    }
+
+    void Remove(){
+        System.out.println("삭제되었습니다.");
     }
 }
